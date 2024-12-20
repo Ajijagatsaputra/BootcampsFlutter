@@ -36,287 +36,173 @@ class HomePage extends StatelessWidget {
           ),
         ),
       ),
-      body: Column(
-        crossAxisAlignment: CrossAxisAlignment.start,
-        children: <Widget>[
-          SizedBox(
-            height: 311,
-            child: ListView(
-              scrollDirection: Axis.horizontal,
-              children: <Widget>[
-                Container(
-                  width: 311,
-                  height: 311,
-                  decoration: BoxDecoration(
-                    borderRadius: BorderRadius.circular(10),
-                    image: DecorationImage(
-                      image: AssetImage('assets/homePage/Mask.png'),
-                      fit: BoxFit.cover,
-                    ),
-                  ),
-                  child: Column(
-                    children: [
-                      Padding(
-                          padding: const EdgeInsets.all(24.0),
-                          child: Column(
-                            crossAxisAlignment: CrossAxisAlignment.start,
-                            children: [
-                              Row(
-                                children: [
-                                  Text(
-                                    'TECHNOLOGY',
-                                    style: GoogleFonts.poppins(
-                                        fontSize: 12,
-                                        fontWeight: FontWeight.bold,
-                                        color: Colors.white),
-                                  ),
-                                  Spacer(),
-                                  Text(
-                                    '3 min ago',
-                                    style: GoogleFonts.poppins(
-                                        fontSize: 8,
-                                        fontWeight: FontWeight.normal,
-                                        color: Colors.white),
-                                  )
-                                ],
-                              ),
-                              const SizedBox(height: 131),
-                              Text(
-                                'Microsoft launches a \ndeepfake detector tool \nahead of US election',
-                                style: GoogleFonts.poppins(
-                                    fontSize: 18,
-                                    fontWeight: FontWeight.bold,
-                                    color: Colors.white),
-                              ),
-                              const SizedBox(height: 13),
-                              Row(
-                                children: [
-                                  Container(
-                                    width: 24,
-                                    height: 24,
-                                    child:
-                                        Image.asset('assets/homePage/chat.png'),
-                                  ),
-                                  SizedBox(width: 24),
-                                  Container(
-                                    width: 17,
-                                    height: 23.95,
-                                    child: Image.asset(
-                                        'assets/homePage/bookmark.png'),
-                                  ),
-                                  SizedBox(width: 174),
-                                  Container(
-                                    width: 24,
-                                    height: 19.9,
-                                    child: Image.asset(
-                                        'assets/homePage/share.png'),
-                                  ),
-                                ],
-                              )
-                            ],
-                          )),
-                    ],
+      body: Padding(
+        padding: const EdgeInsets.symmetric(horizontal: 16.0),
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: <Widget>[
+            SizedBox(
+              height: 311,
+              child: ListView(
+                scrollDirection: Axis.horizontal,
+                children: <Widget>[
+                  _buildFeaturedNewsCard('assets/homePage/Mask.png'),
+                  const SizedBox(width: 8),
+                  _buildFeaturedNewsCard('assets/homePage/Mask.png'),
+                ],
+              ),
+            ),
+            const SizedBox(height: 32),
+            Row(
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              children: [
+                Text(
+                  'Latest News',
+                  style: GoogleFonts.poppins(
+                    fontWeight: FontWeight.normal,
+                    fontSize: 14,
+                    color: Colors.grey,
                   ),
                 ),
                 Container(
-                  width: 311,
-                  height: 311,
-                  margin: EdgeInsets.only(left: 8),
-                  decoration: BoxDecoration(
-                    borderRadius: BorderRadius.circular(10),
-                    image: DecorationImage(
-                      image: AssetImage('assets/homePage/Mask.png'),
-                      fit: BoxFit.cover,
-                    ),
+                  width: 16,
+                  height: 16,
+                  child: Image.asset('assets/homePage/arrow.png'),
+                ),
+              ],
+            ),
+            const SizedBox(height: 16),
+            Expanded(
+              child: ListView(
+                children: [
+                  _buildLatestNewsItem(
+                      'assets/homePage/Image.png',
+                      'TECHNOLOGY',
+                      'Insurtech startup \nPasarPolis gets \$54 \nmillion — Series B'),
+                  const SizedBox(height: 24),
+                  _buildLatestNewsItem(
+                      'assets/homePage/Image2.png',
+                      'TECHNOLOGY',
+                      'The IPO parade \ncontinues as Wish \nfiles, Bumble targets'),
+                  const SizedBox(height: 24),
+                  _buildLatestNewsItem(
+                      'assets/homePage/Image3.png',
+                      'TECHNOLOGY',
+                      'Hypatos gets \n\$11.8M for a deep \nlearning approach'),
+                ],
+              ),
+            ),
+          ],
+        ),
+      ),
+    );
+  }
+
+  Widget _buildFeaturedNewsCard(String imagePath) {
+    return Container(
+      width: 311,
+      height: 311,
+      decoration: BoxDecoration(
+        borderRadius: BorderRadius.circular(10),
+        image: DecorationImage(
+          image: AssetImage(imagePath),
+          fit: BoxFit.cover,
+        ),
+      ),
+      child: Padding(
+        padding: const EdgeInsets.all(16.0),
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            Row(
+              children: [
+                Text(
+                  'TECHNOLOGY',
+                  style: GoogleFonts.poppins(
+                    fontSize: 12,
+                    fontWeight: FontWeight.bold,
+                    color: Colors.white,
                   ),
-                  child: Column(
-                    children: [
-                      Padding(
-                          padding: const EdgeInsets.all(20.0),
-                          child: Column(
-                            crossAxisAlignment: CrossAxisAlignment.start,
-                            children: [
-                              Row(
-                                children: [
-                                  Text(
-                                    'TECHNOLOGY',
-                                    style: GoogleFonts.poppins(
-                                        fontSize: 12,
-                                        fontWeight: FontWeight.bold,
-                                        color: Colors.white),
-                                  ),
-                                  Spacer(),
-                                  Text(
-                                    '3 min ago',
-                                    style: GoogleFonts.poppins(
-                                        fontSize: 8,
-                                        fontWeight: FontWeight.normal,
-                                        color: Colors.white),
-                                  )
-                                ],
-                              ),
-                              const SizedBox(height: 131),
-                              Text(
-                                'Microsoft launches a \ndeepfake detector tool \nahead of US election',
-                                style: GoogleFonts.poppins(
-                                    fontSize: 18,
-                                    fontWeight: FontWeight.bold,
-                                    color: Colors.white),
-                              ),
-                              const SizedBox(height: 13),
-                              Row(
-                                children: [
-                                  Container(
-                                    width: 24,
-                                    height: 24,
-                                    child:
-                                        Image.asset('assets/homePage/chat.png'),
-                                  ),
-                                  SizedBox(width: 24),
-                                  Container(
-                                    width: 17,
-                                    height: 23.95,
-                                    child: Image.asset(
-                                        'assets/homePage/bookmark.png'),
-                                  ),
-                                  SizedBox(width: 174),
-                                  Container(
-                                    width: 24,
-                                    height: 19.9,
-                                    child: Image.asset(
-                                        'assets/homePage/share.png'),
-                                  ),
-                                ],
-                              )
-                            ],
-                          )),
-                    ],
+                ),
+                const Spacer(),
+                Text(
+                  '3 min ago',
+                  style: GoogleFonts.poppins(
+                    fontSize: 8,
+                    fontWeight: FontWeight.normal,
+                    color: Colors.white,
                   ),
                 ),
               ],
             ),
+            const Spacer(),
+            Text(
+              'Microsoft launches a \ndeepfake detector tool \nahead of US election',
+              style: GoogleFonts.poppins(
+                fontSize: 18,
+                fontWeight: FontWeight.bold,
+                color: Colors.white,
+              ),
+            ),
+            const SizedBox(height: 13),
+            Row(
+              children: [
+                Image.asset('assets/homePage/chat.png', width: 24, height: 24),
+                const SizedBox(width: 16),
+                Image.asset(
+                    'assets/homePage/bookmark.png', width: 24, height: 24),
+                const Spacer(),
+                Image.asset('assets/homePage/share.png', width: 24, height: 24),
+              ],
+            ),
+          ],
+        ),
+      ),
+    );
+  }
+
+  Widget _buildLatestNewsItem(
+      String imagePath, String category, String title) {
+    return Row(
+      crossAxisAlignment: CrossAxisAlignment.start,
+      children: [
+        Container(
+          width: 100,
+          height: 100,
+          decoration: BoxDecoration(
+            borderRadius: BorderRadius.circular(8),
+            image: DecorationImage(
+              image: AssetImage(imagePath),
+              fit: BoxFit.cover,
+            ),
           ),
-          SizedBox(height: 40),
-          Row(
+        ),
+        const SizedBox(width: 16),
+        Expanded(
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
             children: [
               Text(
-                'Latest News',
+                category,
                 style: GoogleFonts.poppins(
-                    fontWeight: FontWeight.normal,
-                    fontSize: 14,
-                    color: Colors.grey),
+                  color: Colors.grey,
+                  fontSize: 12,
+                  fontWeight: FontWeight.bold,
+                ),
               ),
-              SizedBox(width: 228),
-              Container(
-                width: 16,
-                height: 16,
-                child: Image.asset('assets/homePage/arrow.png'),
-              )
+              const SizedBox(height: 4),
+              Text(
+                title,
+                style: GoogleFonts.poppins(
+                  fontWeight: FontWeight.bold,
+                  fontSize: 16,
+                  color: Colors.black,
+                ),
+              ),
             ],
           ),
-          SizedBox(height: 23),
-          Expanded(
-              child: ListView(
-            children: [
-              Column(
-                children: [
-                  Row(
-                    children: [
-                      Container(
-                        width: 100,
-                        height: 100,
-                        child: Image.asset('assets/homePage/Image.png'),
-                      ),
-                      SizedBox(width: 24),
-                      Column(
-                        crossAxisAlignment: CrossAxisAlignment.start,
-                        children: [
-                          Text(
-                            'TECHNOLOGY',
-                            style: GoogleFonts.poppins(
-                                color: Colors.grey,
-                                fontSize: 12,
-                                fontWeight: FontWeight.bold),
-                          ),
-                          Text(
-                            'Insurtech startup \nPasarPolis gets \$54 \nmillion — Series B',
-                            style: GoogleFonts.poppins(
-                                fontWeight: FontWeight.bold,
-                                fontSize: 18,
-                                color: Colors.black),
-                          )
-                        ],
-                      )
-                    ],
-                  ),
-                  SizedBox(height: 24),
-                  Row(
-                    children: [
-                      Container(
-                        width: 100,
-                        height: 100,
-                        child: Image.asset('assets/homePage/Image2.png'),
-                      ),
-                      SizedBox(width: 24),
-                      Column(
-                        crossAxisAlignment: CrossAxisAlignment.start,
-                        children: [
-                          Text(
-                            'TECHNOLOGY',
-                            style: GoogleFonts.poppins(
-                                color: Colors.grey,
-                                fontSize: 12,
-                                fontWeight: FontWeight.bold),
-                          ),
-                          Text(
-                            'The IPO parade \ncontinues as Wish \nfiles, Bumble targets',
-                            style: GoogleFonts.poppins(
-                                fontWeight: FontWeight.bold,
-                                fontSize: 18,
-                                color: Colors.black),
-                          )
-                        ],
-                      )
-                    ],
-                  ),
-                  SizedBox(
-                    height: 24,
-                  ),
-                  Row(
-                    children: [
-                      Container(
-                        width: 100,
-                        height: 100,
-                        child: Image.asset('assets/homePage/Image3.png'),
-                      ),
-                      SizedBox(width: 24),
-                      Column(
-                        crossAxisAlignment: CrossAxisAlignment.start,
-                        children: [
-                          Text(
-                            'TECHNOLOGY',
-                            style: GoogleFonts.poppins(
-                                color: Colors.grey,
-                                fontSize: 12,
-                                fontWeight: FontWeight.bold),
-                          ),
-                          Text(
-                            'Hypatos gets \n\$11.8M for a deep \nlearning approach',
-                            style: GoogleFonts.poppins(
-                                fontWeight: FontWeight.bold,
-                                fontSize: 18,
-                                color: Colors.black),
-                          )
-                        ],
-                      )
-                    ],
-                  )
-                ],
-              )
-            ],
-          )),
-        ],
-      ),
+        ),
+      ],
     );
   }
 }

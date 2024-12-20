@@ -79,6 +79,7 @@ class GetStartedPage extends StatelessWidget {
                         side: const BorderSide(color: Color(0xff3498DB)))),
               ),
             ),
+            SizedBox(height: 20),
           ],
         ),
       ),

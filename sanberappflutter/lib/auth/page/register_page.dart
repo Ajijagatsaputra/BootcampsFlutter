@@ -13,6 +13,9 @@ class RegisterPage extends StatefulWidget {
 class _RegisterPageState extends State<RegisterPage> {
   final TextEditingController _emailController = TextEditingController();
   final TextEditingController _passwordController = TextEditingController();
+  final TextEditingController _confirmPasswordController =
+  TextEditingController();
+  final _formKey = GlobalKey<FormState>();
 
   @override
   Widget build(BuildContext context) {
@@ -25,30 +28,66 @@ class _RegisterPageState extends State<RegisterPage> {
             children: [
               Center(
                 child: Container(
-                  width: 352,
-                  height: 330,
-                  decoration: BoxDecoration(
+                  width: 200,
+                  height: 200,
+                  decoration: const BoxDecoration(
                     image: DecorationImage(
                       image: AssetImage('assets/authPage/image_news_app.png'),
+                      fit: BoxFit.contain,
                     ),
                   ),
                 ),
               ),
-              SizedBox(height: 40),
-              CustomTextFormField(
-                label: "Email",
-                controller: _emailController,
+              const SizedBox(height: 20),
+              Form(
+                key: _formKey,
+                child: Column(
+                  children: [
+                    CustomTextFormField(
+                      label: "Email",
+                      controller: _emailController,
+                      validator: (value) {
+                        if (value == null || value.isEmpty) {
+                          return 'Email tidak boleh kosong';
+                        }
+                        if (!RegExp(r'^[^@]+@[^@]+\.[^@]+').hasMatch(value)) {
+                          return 'Masukkan email yang valid';
+                        }
+                        return null;
+                      },
+                    ),
+                    CustomTextFormField(
+                      label: "Password",
+                      controller: _passwordController,
+                      obscureText: true,
+                      validator: (value) {
+                        if (value == null || value.isEmpty) {
+                          return 'Password tidak boleh kosong';
+                        }
+                        if (value.length < 6) {
+                          return 'Password harus minimal 6 karakter';
+                        }
+                        return null;
+                      },
+                    ),
+                    CustomTextFormField(
+                      label: "Konfirmasi Password",
+                      controller: _confirmPasswordController,
+                      obscureText: true,
+                      validator: (value) {
+                        if (value == null || value.isEmpty) {
+                          return 'Konfirmasi password tidak boleh kosong';
+                        }
+                        if (value != _passwordController.text) {
+                          return 'Password tidak cocok';
+                        }
+                        return null;
+                      },
+                    ),
+                  ],
+                ),
               ),
-              CustomTextFormField(
-                label: "Password",
-                controller: _passwordController,
-                obscureText: true,
-              ),
-              CustomTextFormField(
-                label: "Konfirmasi Password",
-                controller: _passwordController,
-                obscureText: true,
-              ),
+              const SizedBox(height: 24),
               SizedBox(
                 height: 52,
                 width: double.infinity,
@@ -57,96 +96,102 @@ class _RegisterPageState extends State<RegisterPage> {
                     shape: RoundedRectangleBorder(
                       borderRadius: BorderRadius.circular(8),
                     ),
-                    backgroundColor: Color(0xff3490BB),
+                    backgroundColor: const Color(0xff3490BB),
                   ),
                   onPressed: () async {
-                    createUser();
+                    if (_formKey.currentState!.validate()) {
+                      createUser();
+                    }
                   },
-                  child: Text(
+                  child: const Text(
                     'Mendaftar',
-                    style: TextStyle(color: Colors.white),
+                    style: TextStyle(color: Colors.white, fontSize: 16),
                   ),
                 ),
               ),
-              SizedBox(height: 40),
+              const SizedBox(height: 30),
               Row(
-                children: [
+                children: const [
                   Expanded(
                     child: Divider(
                       color: Color(0xffCECECE),
-                      height: 3,
+                      thickness: 1,
                     ),
                   ),
                   Padding(
-                    padding: const EdgeInsets.symmetric(horizontal: 8),
+                    padding: EdgeInsets.symmetric(horizontal: 8),
                     child: Text(
                       'Atau daftar menggunakan',
-                      style: TextStyle(color: Color(0xffCECECE)),
+                      style: TextStyle(color: Color(0xffCECECE), fontSize: 14),
                     ),
                   ),
                   Expanded(
                     child: Divider(
                       color: Color(0xffCECECE),
-                      height: 3,
+                      thickness: 1,
                     ),
                   ),
                 ],
               ),
-              SizedBox(height: 40),
-              Material(
-                color: Colors.white,
-                child: SizedBox(
-                  height: 52,
-                  width: double.infinity,
-                  child: ElevatedButton(
-                    style: ElevatedButton.styleFrom(
-                      surfaceTintColor: Colors.white,
-                      shape: RoundedRectangleBorder(
-                        side: BorderSide(color: Colors.red),
-                        borderRadius: BorderRadius.circular(8),
-                      ),
-                      backgroundColor: Colors.white,
+              const SizedBox(height: 20),
+              SizedBox(
+                height: 52,
+                width: double.infinity,
+                child: ElevatedButton(
+                  style: ElevatedButton.styleFrom(
+                    shape: RoundedRectangleBorder(
+                      side: const BorderSide(color: Colors.red),
+                      borderRadius: BorderRadius.circular(8),
                     ),
-                    onPressed: () {},
-                    child: Row(
-                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                      children: [
-                        Container(
-                          width: 33,
-                          height: 33,
-                          decoration: BoxDecoration(
-                            image: DecorationImage(
-                                image:
-                                    AssetImage('assets/authPage/google.png')),
+                    backgroundColor: Colors.white,
+                    elevation: 2,
+                  ),
+                  onPressed: () {
+                    // Aksi daftar menggunakan Google
+                  },
+                  child: Row(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: [
+                      Container(
+                        width: 24,
+                        height: 24,
+                        decoration: const BoxDecoration(
+                          image: DecorationImage(
+                            image: AssetImage('assets/authPage/google.png'),
                           ),
                         ),
-                        Text(
-                          'Mendaftar',
-                          style: TextStyle(color: Colors.red),
+                      ),
+                      const SizedBox(width: 12),
+                      const Text(
+                        'Google',
+                        style: TextStyle(
+                          color: Colors.red,
+                          fontWeight: FontWeight.w700,
+                          fontSize: 16,
                         ),
-                        SizedBox(),
-                      ],
-                    ),
+                      ),
+                    ],
                   ),
                 ),
               ),
-              SizedBox(height: 49),
+              const SizedBox(height: 30),
               Row(
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
-                  Text(
-                    'Sudah punya akun? silahkan',
+                  const Text(
+                    'Sudah punya akun? silahkan ',
                     style: TextStyle(color: Colors.black),
                   ),
-                  InkWell(
+                  GestureDetector(
                     onTap: () {
-                      // Navigator.push(context,
-                      //     MaterialPageRoute(builder: (context) => LoginPage()));
                       Get.toNamed(AppRoutesNamed.loginPage);
                     },
-                    child: Text(
-                      ' masuk',
-                      style: TextStyle(color: Color(0xff3490BB)),
+                    child: const Text(
+                      'Masuk',
+                      style: TextStyle(
+                        color: Color(0xff3490BB),
+                        fontWeight: FontWeight.bold,
+                      ),
                     ),
                   ),
                 ],
@@ -162,16 +207,27 @@ class _RegisterPageState extends State<RegisterPage> {
     final auth = FirebaseAuth.instance;
     try {
       await auth.createUserWithEmailAndPassword(
-          email: _emailController.text, password: _passwordController.text);
+        email: _emailController.text.trim(),
+        password: _passwordController.text,
+      );
 
-      // Navigator.pop(
-      //   context,
-      //   MaterialPageRoute(builder: (context) => LoginPage()),
-      // );
+      Get.snackbar(
+        "Berhasil",
+        "Akun berhasil dibuat!",
+        backgroundColor: Colors.green,
+        colorText: Colors.white,
+        snackPosition: SnackPosition.BOTTOM,
+      );
+
       Get.toNamed(AppRoutesNamed.loginPage);
     } catch (e) {
-      // Handle error
-      print("Login error: $e");
+      Get.snackbar(
+        "Error",
+        e.toString(),
+        backgroundColor: Colors.red,
+        colorText: Colors.white,
+        snackPosition: SnackPosition.BOTTOM,
+      );
     }
   }
 }
@@ -182,27 +238,26 @@ class CustomTextFormField extends StatelessWidget {
     required this.label,
     required this.controller,
     this.obscureText = false,
+    this.validator,
   });
 
   final String label;
   final TextEditingController controller;
   final bool obscureText;
+  final String? Function(String?)? validator;
 
   @override
   Widget build(BuildContext context) {
     return Padding(
-      padding: const EdgeInsets.only(bottom: 25),
+      padding: const EdgeInsets.only(bottom: 20),
       child: TextFormField(
         controller: controller,
         obscureText: obscureText,
+        validator: validator,
         decoration: InputDecoration(
-          label: Text(
-            label,
-            style: TextStyle(color: Color(0xffCECECE)),
-          ),
-          border: OutlineInputBorder(
-            borderSide: BorderSide(color: Color(0xffCECECE)),
-          ),
+          labelText: label,
+          labelStyle: const TextStyle(color: Color(0xffCECECE)),
+          border: const OutlineInputBorder(),
         ),
       ),
     );
